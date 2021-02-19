@@ -1,8 +1,7 @@
 from flask import Flask, render_template
-
-# from flask_wtf import Flaskform
-# from wtforms import StringField,SubmitField
-# from wtforms.validators import DataRequired
+from flask_wtf import Flaskform
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 #  Need to start Flask by...
 # 1. start powershell
