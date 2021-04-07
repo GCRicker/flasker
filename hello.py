@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, flash, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -11,6 +11,7 @@ from datetime import datetime
 # 2. type "export FLASK_APP=hello.py"
 # 3. type "export FLASK_ENV=development"
 # 4. type "flask run"
+# 5. type password below
 # CSS changes use cntrl F5 for new cache
 
 # Configure GitHub
@@ -23,14 +24,22 @@ from datetime import datetime
 #
 # Create a Flask Instance
 app = Flask(__name__)
+
 # Add Database
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+
+# Using sqlite...
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+
+# Using mySQL
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://Greg:Zaq1qaz1@HAGRID/users"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://Greg:mysql@Weasley/users"
 
 # Secret Key
 app.config["SECRET_KEY"] = "My secret key for csrf used to protect forms"
 
 # Initialize the Database
 db = SQLAlchemy(app)
+
 
 # Create a database Model
 class Users(db.Model):
@@ -55,6 +64,29 @@ class UserForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+
+# Update Database Record
+@app.route("/update/<int:id>", methods=["GET", "POST"])
+def update(id):
+    form = UserForm()
+    name_to_update = Users.query.get_or_404(id)
+    if request.method == "POST":  # figure out where its coming from...
+        name_to_update.name = request.form["name"]
+        name_to_update.email = request.form["email"]
+        try:
+            db.session.commit()
+            flash("User Updated Successfully")
+            return render_template(
+                "update.html", form=form, name_to_update=name_to_update
+            )
+        except:
+            flash("Error!  Looks like there was a problem")
+            return render_template(
+                "update.html", form=form, name_to_update=name_to_update
+            )
+    else:
+        return render_template("update.html", form=form, name_to_update=name_to_update)
 
 
 # def index():
