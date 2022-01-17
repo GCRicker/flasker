@@ -53,7 +53,7 @@ app.config[
 # Secret Key
 app.config["SECRET_KEY"] = "My secret key for csrf used to protect forms"
 
-# Initialize the Database
+# Initialize the  Database
 # UPLOAD_FOLDER = "static/images"
 UPLOAD_FOLDER = "/Users/GCRic/Documents/Programming/Python/Projects/Flask/flasker/static/images"
 # UPLOAD_FOLDER = "//WEASLEY/images"
