@@ -44,8 +44,11 @@ ckeditor = CKEditor(app)
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 
 # Using mySQL
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://Greg:Zaq1qaz1@HAGRID/users"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://Greg:mysql@Weasley/users"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://Greg:password@HAGRID/users"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://Greg:mysql@Weasley/users"
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgres://puvecfmkngtquk:7575c9720dbedc593c780b876c3f89f9b98186a840882fdbb3bd738f8fc18612@ec2-34-230-198-12.compute-1.amazonaws.com:5432/d5v4c1m9mio89o"
 
 # Secret Key
 app.config["SECRET_KEY"] = "My secret key for csrf used to protect forms"
@@ -444,9 +447,9 @@ class Users(db.Model, UserMixin):
     name = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
     favorite_color = db.Column(db.String(120))
-    about_author = db.Column(db.Text(500), nullable=True)
+    about_author = db.Column(db.Text(), nullable=True)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
-    profile_pic = db.Column(db.String(300), nullable=True)
+    profile_pic = db.Column(db.String(), nullable=True)
     # Password Stuff
     password_hash = db.Column(db.String(128))
     # User can have many posts - one to many

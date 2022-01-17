@@ -16,13 +16,42 @@
           <a class="nav-link" href="{{ url_for('name') }}">Name</a>
         </li>
 
+        {% if current_user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('add_user') }}">Add User</a>
+          <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+        </li>
+
+        {% if current_user.id == 26 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('admin') }}">Admin</a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('add_user') }}">Register</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+        </li>
+        {%endif%}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('add_post') }}">Add Blog Post</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('posts') }}">View Posts</a>
         </li>
 
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form method = "POST" action="{{ url_for('search') }}"class="d-flex">
+        {{ form.hidden_tag() }}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search", name="searched">
         <button class="btn btn-outline-secondary" type="submit">Search</button>
       </form>
     </div>

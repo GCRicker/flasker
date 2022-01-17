@@ -151,14 +151,12 @@ def dashboard():
         # Set UUID
         pic_name = str(uuid.uuid1()) + "_" + pic_filename
         # Save that Image
-        saver = request.files["profile_pic"]
-
+        name_to_update.profile_pic.save(os.path.join(app.config["UPLOAD_FOLDER"]), pic_name)
         # Save to string to save to db
         name_to_update.profile_pic = pic_name
 
         try:
             db.session.commit()
-            saver.save(os.path.join(app.config["UPLOAD_FOLDER"]), pic_name)
             flash("User Updated Successfully")
             return render_template("dashboard.html", form=form, name_to_update=name_to_update)
         except:

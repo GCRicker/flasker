@@ -1,4 +1,12 @@
 {
     "python.formatting.provider": "black",
-    "python.pythonPath": "venv\\Scripts\\python.exe"
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "cSpell.ignoreWords": [
+        "db",
+        "pymysql",
+        "venv",
+        "wtforms"
+    ]
 }

@@ -1,0 +1,5 @@
+Create username in Class Users
+Migrate the database
+Create a form for username in Class USerForm
+In def add_user() add username in user = Users(...) and form.username.data = ""
+Update add_user.html
