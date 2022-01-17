@@ -32,7 +32,7 @@ import os
 # $ git commit -am 'comment'
 
 #
-# Create a Flask Instance
+# Create a  Flask Instance
 app = Flask(__name__)
 
 # Add CKEditor
