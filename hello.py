@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, flash, request, redirect, url_for
 from flask.helpers import url_for
+=======
+from flask import Flask, render_template, flash, request
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+>>>>>>> df8149879c172002cff7c03baed87cf6ac0a6824
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
@@ -35,9 +42,12 @@ import os
 # Create a Flask Instance
 app = Flask(__name__)
 
+<<<<<<< HEAD
 # Add CKEditor
 ckeditor = CKEditor(app)
 
+=======
+>>>>>>> df8149879c172002cff7c03baed87cf6ac0a6824
 # Add Database
 
 # Using sqlite...
@@ -60,10 +70,20 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+<<<<<<< HEAD
 # Flask_Login Stuff
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+=======
+
+# Create a database Model
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(120), nullable=False, unique=True)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow)
+>>>>>>> df8149879c172002cff7c03baed87cf6ac0a6824
 
 
 @login_manager.user_loader
@@ -291,6 +311,29 @@ def update(id):
             return render_template("update.html", form=form, name_to_update=name_to_update, id=id)
     else:
         return render_template("update.html", form=form, name_to_update=name_to_update, id=id)
+
+
+# Update Database Record
+@app.route("/update/<int:id>", methods=["GET", "POST"])
+def update(id):
+    form = UserForm()
+    name_to_update = Users.query.get_or_404(id)
+    if request.method == "POST":  # figure out where its coming from...
+        name_to_update.name = request.form["name"]
+        name_to_update.email = request.form["email"]
+        try:
+            db.session.commit()
+            flash("User Updated Successfully")
+            return render_template(
+                "update.html", form=form, name_to_update=name_to_update
+            )
+        except:
+            flash("Error!  Looks like there was a problem")
+            return render_template(
+                "update.html", form=form, name_to_update=name_to_update
+            )
+    else:
+        return render_template("update.html", form=form, name_to_update=name_to_update)
 
 
 # def index():
