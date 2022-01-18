@@ -2,17 +2,10 @@
 {% block content %}
 
 {% for message in get_flashed_messages() %}
-<<<<<<< HEAD
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ message}}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-=======
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
->>>>>>> df8149879c172002cff7c03baed87cf6ac0a6824
 {% endfor %}
 
 {% if name %}
@@ -21,7 +14,6 @@
 
 <table class="table table-hover table-bordered table-striped">
 
-<<<<<<< HEAD
     {% for our_user in our_users %}
     <tr>
         <td>{{ our_user.id}}. <a href="{{url_for('update', id=our_user.id)}}"> {{our_user.name}}</a> -
@@ -29,11 +21,6 @@
                 href="{{url_for('delete', id=our_user.id)}}">Delete</a></td>
     </tr>
     {% endfor %}
-=======
-{% for our_user in our_users %}
-    <tr><td>{{ our_user.id}}. <a href="{{url_for('update', id=our_user.id)}}"> {{our_user.name}}</a> - {{our_user.email}} </td></tr>
-{% endfor %}
->>>>>>> df8149879c172002cff7c03baed87cf6ac0a6824
 </table>
 <br /><br />
 
@@ -79,7 +66,6 @@
 <br /><br /><br />
 <table class="table table-hover table-bordered table-striped">
 
-<<<<<<< HEAD
     {% for our_user in our_users %}
     <tr>
         <td>{{ our_user.id}}. <a href="{{ url_for('update', id=our_user.id) }}"> {{our_user.name}}</a>
@@ -88,11 +74,6 @@
             PW: {{ our_user.password_hash }} - <a href="{{url_for('delete', id=our_user.id)}}">Delete</a></td>
     </tr>
     {% endfor %}
-=======
-{% for our_user in our_users %}
-    <tr><td>{{ our_user.id}}. <a href="{{url_for('update', id=our_user.id)}}"> {{our_user.name}}</a> - {{our_user.email}} </td></tr>
-{% endfor %}
->>>>>>> df8149879c172002cff7c03baed87cf6ac0a6824
 </table>
 {% endif %}
 
