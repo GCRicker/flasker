@@ -50,6 +50,7 @@ app.config[
     "SQLALCHEMY_DATABASE_URI"
 ] = "postgres://vrpjmkhpxfavzb:4e299bb26bcf19e025fbb523e6463e81c31fdd409939d94da89d93f8d0eb059f@ec2-54-208-139-247.compute-1.amazonaws.com:5432/d1smf0e6f59tih"
 
+
 # Secret Key
 app.config["SECRET_KEY"] = "My secret key for csrf used to protect forms"
 
