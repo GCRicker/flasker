@@ -1,0 +1,33 @@
+google heroku.cli and install
+
+pip install gunicorn
+pip install psycopg2  # Postres
+
+pip freeze > requirements.txt
+
+Do NOT use SQLAlchemy 1.4!!!!!  Doesn't work with heroku. Use 1.3.23
+pip uninstall SQLAlchemy
+pip install SQLAlchemy==1.3.23
+
+Create a file named Profile (with no extension) Inside have...
+web: gunicorn app:app
+Note the space after web:
+
+heroku create flaskergcr
+Note the URL created for the app
+heroku addons:create heroku-postgresql:hobby-dev --app flaskergcr
+heroku config --app flaskergcr will provide you with the database URL
+Cut and paste the database URL to your code
+
+push the file to GitHub
+git push heroku main
+heroku run python  you will get >> prompt
+>>from app import db
+db.create_all()
+exit()
+
+
+
+
+
+

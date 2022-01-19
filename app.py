@@ -80,7 +80,7 @@ def load_user(user_id):
 @login_required
 def admin():
     id = current_user.id
-    if id == 26:
+    if id == 1:
         return render_template("admin.html")
     else:
         flash("Sorry, you must be the Admin to access")
