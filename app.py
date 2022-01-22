@@ -412,21 +412,26 @@ def test_pw():
 
 # Delete User from database
 @app.route("/delete/<int:id>")  # pass in users id for lookup and then delete
+@login_required
 def delete(id):
-    user_to_delete = Users.query.get_or_404(id)
-    # our_users, name, and form are needed to return to the page
-    our_users = Users.query.order_by(Users.date_added)
-    name = None
-    form = UserForm()
-    try:
-        db.session.delete(user_to_delete)
-        db.session.commit()
-        flash("User Deleted Successfully!!")
-        # return the page to return to after the delete
-        return render_template("add_user.html", form=form, name=name, our_users=our_users)
-    except:
-        flash("Whoops!  There was a problem deleting the record.")
-        return render_template("add_user.html", form=form, name=name, our_users=our_users)
+    if id == current_user.id:
+        user_to_delete = Users.query.get_or_404(id)
+        # our_users, name, and form are needed to return to the page
+        our_users = Users.query.order_by(Users.date_added)
+        name = None
+        form = UserForm()
+        try:
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            flash("User Deleted Successfully!!")
+            # return the page to return to after the delete
+            return render_template("add_user.html", form=form, name=name, our_users=our_users)
+        except:
+            flash("Whoops!  There was a problem deleting the record.")
+            return render_template("add_user.html", form=form, name=name, our_users=our_users)
+    else:
+        flash("Sorry, you can't delete that user!")
+        return redirect(url_for("dashboard"))
 
 
 # Create a Blog Post Model
