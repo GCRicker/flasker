@@ -1,32 +1,64 @@
-{% extends 'base.html' %}
-{% block content %}
-
-{% for message in get_flashed_messages() %}
+{% extends 'base.html' %} {% block content %} {% for message in
+get_flashed_messages() %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ message}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  {{ message}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
 </div>
 {% endfor %}
 
 <h1>Blog Posts...</h1>
 <br />
 
-
 <div class="shadow p-3 mb-5 bg-body rounded">
-    <h3>{{ post.title }}</h3>
-    By: {{ post.poster.name }}<br />
-    {{ post.slug }}<br />
-    {{ post.date_posted }}<br />
-    {{ post.content|safe }}<br />
-    {% if post.poster.about_author %}
-        {{ post.poster.about_author }}<br />
-    {% endif %}
+  <h2>{{ post.title }}</h2>
+  <small>By: {{ post.poster.name }}<br />
+  {{ post.slug }}<br />
+  {{ post.date_posted }}</small><br/><br/>
+  {{ post.content|safe }}<br />
+
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <div class="col-md-2">
+            {% if post.poster.profile_pic %}
+                <img src="{{ url_for('static',filename='images/' + post.poster.profile_pic)}}" width="150" align="left"> 
+            {% else %}
+                <img src="{{ url_for('static',filename='images/default_profile.jpg')}}" width="150" align="left">
+            {% endif %}
+        </div
+        <div class="col-md-10">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ post.poster.name }}
+                </h5>
+                    <p class="card-text">
+                        {% if post.poster.about_author %} {{ post.poster.about_author }}<br />
+                        {% else %} Author has no about profile {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% if post.poster_id == current_user.id %}
-<a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-outline-secondary btn-sm">Edit Post</a>
-<a href="{{ url_for('delete_post', id=post.id) }}" class="btn btn-outline-danger btn-sm">Delete Post</a>
+<a
+  href="{{ url_for('edit_post', id=post.id) }}"
+  class="btn btn-outline-secondary btn-sm"
+  >Edit Post</a
+>
+<a
+  href="{{ url_for('delete_post', id=post.id) }}"
+  class="btn btn-outline-danger btn-sm"
+  >Delete Post</a
+>
 {% endif %}
-<a href="{{ url_for('posts') }}" class="btn btn-outline-secondary btn-sm">Back to Blogs</a>
+<a href="{{ url_for('posts') }}" class="btn btn-outline-secondary btn-sm"
+  >Back to Blogs</a
+>
 
 {% endblock %}
