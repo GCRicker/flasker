@@ -221,7 +221,7 @@ def posts():
 def delete_post(id):  # include post id to delete
     post_to_delete = Posts.query.get_or_404(id)  # Query database for that post
     id = current_user.id
-    if id == post_to_delete.poster.id:
+    if id == post_to_delete.poster.id or id == 1:
         try:
             db.session.delete(post_to_delete)  # Delete the post
             db.session.commit()  # Always have to commit
@@ -264,7 +264,7 @@ def edit_post(id):
         return redirect(url_for("post", id=post.id))
 
     # Fill in the form
-    if current_user.id == post.poster_id:
+    if current_user.id == post.poster_id or current_user.id == 1:
         form.title.data = post.title
         form.slug.data = post.slug
         form.content.data = post.content
